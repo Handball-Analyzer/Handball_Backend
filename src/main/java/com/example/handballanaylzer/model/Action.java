@@ -5,15 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
-public class Event {
+public class Action {
     @Id
     @GeneratedValue
     private Long id;
 
-    private Long event_list_id;
+    private Long action_list_id;
     private Long user_id;
     private Long game_id;
     private LocalDateTime timestamp;
@@ -27,11 +26,11 @@ public class Event {
     }
 
     public Long getEvent_list_id() {
-        return event_list_id;
+        return action_list_id;
     }
 
-    public void setEvent_list_id(Long event_list_id) {
-        this.event_list_id = event_list_id;
+    public void setEvent_list_id(Long action_list_id) {
+        this.action_list_id = action_list_id;
     }
 
     public Long getUser_id() {
