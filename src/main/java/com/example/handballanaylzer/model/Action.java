@@ -2,28 +2,22 @@ package com.example.handballanaylzer.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 public class Action {
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private Long action_list_id;
     private Long user_id;
     private Long game_id;
     private LocalDateTime timestamp;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getEvent_list_id() {
         return action_list_id;

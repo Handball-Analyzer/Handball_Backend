@@ -5,16 +5,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-public class Training {
+public class Conversation {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private UUID team_id;
-    private LocalDateTime localDateTime;
-    private UUID gym_id;
+
+    private String title;
+
 
 }

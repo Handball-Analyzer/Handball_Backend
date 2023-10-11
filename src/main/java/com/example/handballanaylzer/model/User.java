@@ -5,12 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.hibernate.annotations.Type;
+
+import java.util.UUID;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String firstname;
     private String lastname;
     private String email;
@@ -18,16 +21,49 @@ public class User {
     private String password;
     private String club_id;
     private String role;
-    private Long settings_id;
+    private UUID settings_id;
+    private Boolean active;
 
+    public User() {
+    }
 
-    public Long getId() {
+    public User(String firstname, String lastname, String email, String gender, String password, String club_id, String role, UUID settings_id, Boolean active) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.gender = gender;
+        this.password = password;
+        this.club_id = club_id;
+        this.role = role;
+        this.settings_id = settings_id;
+        this.active = active;
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
+
+    public UUID getSettings_id() {
+        return settings_id;
+    }
+
+    public void setSettings_id(UUID settings_id) {
+        this.settings_id = settings_id;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+
 
     public String getFirstname() {
         return firstname;
@@ -85,11 +121,4 @@ public class User {
         this.role = role;
     }
 
-    public Long getSettings_id() {
-        return settings_id;
-    }
-
-    public void setSettings_id(Long settings_id) {
-        this.settings_id = settings_id;
-    }
 }

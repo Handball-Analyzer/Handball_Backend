@@ -2,6 +2,7 @@ package com.example.handballanaylzer.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
@@ -10,21 +11,15 @@ import java.util.UUID;
 @Entity
 public class Game {
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private Long gym;
     private LocalDateTime datetime;
     private String opponents;
     private  Integer score_home;
     private Integer score_opponents;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getGym() {
         return gym;

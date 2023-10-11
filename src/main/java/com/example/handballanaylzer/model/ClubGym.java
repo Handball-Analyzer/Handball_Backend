@@ -2,13 +2,16 @@ package com.example.handballanaylzer.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.util.UUID;
 
 @Entity
 public class ClubGym {
     @Id
-    @GeneratedValue
-    private Long id;
-    private Long club_id;
-    private Long gym_id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    private UUID club_id;
+    private UUID gym_id;
 }
