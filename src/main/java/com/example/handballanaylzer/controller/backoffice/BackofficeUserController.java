@@ -2,8 +2,8 @@ package com.example.handballanaylzer.controller.backoffice;
 
 import com.example.handballanaylzer.model.User;
 import com.example.handballanaylzer.repository.UserRepository;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,5 +26,13 @@ public class BackofficeUserController {
     @GetMapping("/backoffice/login/{email}")
     public Optional<User> loginUser(@PathVariable String email){
         return  userRepository.findByEmail(email);
+    }
+
+    // not ready
+    @PatchMapping("/backoffice/disableAccount/{id}")
+    public ResponseEntity<?> disableAccount(@PathVariable UUID id){
+        Optional<User> user = userRepository.findById(id);
+        return ResponseEntity.ok("Created");
+
     }
 }
