@@ -1,10 +1,8 @@
 package com.example.handballanaylzer.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +15,42 @@ public class Gym {
     private Integer plz;
     private Integer housenumber;
     private String location;
+    @OneToMany(mappedBy = "gym")
+    private Set<ClubGym> clubGym;
+    @OneToMany(mappedBy = "gym")
+    private Set<Game> games;
 
+    @OneToMany(mappedBy = "gym")
+    private Set<Training> trainings;
+
+
+
+    public Gym() {
+    }
+
+    public Gym(String name, String street, Integer plz, Integer housenumber, String location) {
+        this.name = name;
+        this.street = street;
+        this.plz = plz;
+        this.housenumber = housenumber;
+        this.location = location;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Set<ClubGym> getClubGym() {
+        return clubGym;
+    }
+
+    public void setClubGym(Set<ClubGym> clubGym) {
+        this.clubGym = clubGym;
+    }
 
     public String getName() {
         return name;

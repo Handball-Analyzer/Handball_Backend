@@ -1,12 +1,10 @@
 package com.example.handballanaylzer.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -19,24 +17,38 @@ public class User {
     private String email;
     private String gender;
     private String password;
-    private String club_id;
+
     private String role;
-    private UUID settings_id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "settings_id", referencedColumnName = "id")
+    private Settings settings;
     private Boolean active;
 
-    public User() {
-    }
+    @OneToMany(mappedBy = "user")
+    Set<ClubUser> clubUsers;
 
-    public User(String firstname, String lastname, String email, String gender, String password, String club_id, String role, UUID settings_id, Boolean active) {
+    @OneToMany(mappedBy = "user")
+    private Set<Action> actions;
+
+    @OneToMany(mappedBy = "user")
+    private Set<ConversationMember> conversationMembers;
+
+    @OneToMany(mappedBy = "user")
+    private Set<ChatMessage> chatMessages;
+
+
+    public User(String firstname, String lastname, String email, String gender, String password, String role, Settings settings, Boolean active) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.gender = gender;
         this.password = password;
-        this.club_id = club_id;
         this.role = role;
-        this.settings_id = settings_id;
+        this.settings = settings;
         this.active = active;
+    }
+
+    public User() {
     }
 
     public UUID getId() {
@@ -45,14 +57,6 @@ public class User {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public UUID getSettings_id() {
-        return settings_id;
-    }
-
-    public void setSettings_id(UUID settings_id) {
-        this.settings_id = settings_id;
     }
 
     public Boolean getActive() {
@@ -97,14 +101,6 @@ public class User {
         this.password = password;
     }
 
-    public String getClub_id() {
-        return club_id;
-    }
-
-    public void setClub_id(String club_id) {
-        this.club_id = club_id;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -121,4 +117,27 @@ public class User {
         this.role = role;
     }
 
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", settings=" + settings +
+                ", active=" + active +
+                ", clubUsers=" + clubUsers +
+                '}';
+    }
 }

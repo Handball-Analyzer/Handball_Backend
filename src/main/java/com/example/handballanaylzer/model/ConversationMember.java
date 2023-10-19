@@ -1,18 +1,24 @@
 package com.example.handballanaylzer.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @Entity
 public class ConversationMember {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private UUID Conversation_id;
-    private UUID user_id;
+    @ManyToOne
+    @JoinColumn(name = "conversation_id")
+    private Conversation conversation;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private User user;
+
+
+
 }

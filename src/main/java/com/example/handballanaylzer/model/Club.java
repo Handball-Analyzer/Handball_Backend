@@ -1,10 +1,9 @@
 package com.example.handballanaylzer.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -17,6 +16,18 @@ public class Club {
     private Integer plz;
     private Integer housenumber;
     private String location;
+    @OneToMany(mappedBy ="club")
+    @JsonIgnore
+    private Set<Team> teams;
+
+    @OneToMany(mappedBy = "club")
+    @JsonIgnore
+    private Set<ClubUser> clubuser;
+
+    @OneToMany(mappedBy = "club")
+    @JsonIgnore
+    private Set<ClubGym>  clubgym;
+
 
     public Club( String name, String street, Integer plz, Integer housenumber, String location){
         this.name = name;
@@ -40,7 +51,6 @@ public class Club {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -76,4 +86,26 @@ public class Club {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
+
+    @Override
+    public String toString() {
+        return "Club{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", street='" + street + '\'' +
+                ", plz=" + plz +
+                ", housenumber=" + housenumber +
+                ", location='" + location + '\'' +
+                ", teams=" + teams +
+                '}';
+    }
 }
+

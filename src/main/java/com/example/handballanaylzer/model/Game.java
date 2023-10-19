@@ -1,11 +1,9 @@
 package com.example.handballanaylzer.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -13,20 +11,41 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private Long gym;
+
     private LocalDateTime datetime;
     private String opponents;
     private  Integer score_home;
     private Integer score_opponents;
 
+    @ManyToOne
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
 
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
-    public Long getGym() {
-        return gym;
+    @OneToMany(mappedBy = "game")
+    private Set<Action> actions;
+
+    public Game() {
     }
 
-    public void setGym(Long gym) {
+    public Game(LocalDateTime datetime, String opponents, Integer score_home, Integer score_opponents, Gym gym, Team team) {
+        this.datetime = datetime;
+        this.opponents = opponents;
+        this.score_home = score_home;
+        this.score_opponents = score_opponents;
         this.gym = gym;
+        this.team = team;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public LocalDateTime getDatetime() {
@@ -59,5 +78,29 @@ public class Game {
 
     public void setScore_opponents(Integer score_opponents) {
         this.score_opponents = score_opponents;
+    }
+
+    public Gym getGym() {
+        return gym;
+    }
+
+    public void setGym(Gym gym) {
+        this.gym = gym;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Set<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(Set<Action> actions) {
+        this.actions = actions;
     }
 }

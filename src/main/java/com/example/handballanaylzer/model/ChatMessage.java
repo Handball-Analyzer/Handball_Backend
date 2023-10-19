@@ -1,11 +1,10 @@
 package com.example.handballanaylzer.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -14,10 +13,27 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private UUID conversation_id;
-    private UUID user_id;
+
     private String Message;
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "conversation_id", nullable = false)
+    private Conversation conversation;
+
+    public ChatMessage() {
+    }
+
+    public ChatMessage(String message, User user, Conversation conversation) {
+        Message = message;
+        this.timestamp = LocalDateTime.now();
+        this.user = user;
+        this.conversation = conversation;
+    }
 
     public UUID getId() {
         return id;
@@ -25,22 +41,6 @@ public class ChatMessage {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public UUID getConversation_id() {
-        return conversation_id;
-    }
-
-    public void setConversation_id(UUID conversation_id) {
-        this.conversation_id = conversation_id;
-    }
-
-    public UUID getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(UUID user_id) {
-        this.user_id = user_id;
     }
 
     public String getMessage() {
@@ -51,11 +51,27 @@ public class ChatMessage {
         Message = message;
     }
 
-    public Timestamp getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Conversation getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
     }
 }

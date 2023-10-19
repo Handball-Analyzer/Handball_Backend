@@ -1,9 +1,6 @@
 package com.example.handballanaylzer.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,33 +11,44 @@ public class Action {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private Long action_list_id;
-    private Long user_id;
-    private Long game_id;
+    @ManyToOne
+    @JoinColumn(name = "actionTyp_id", nullable = false)
+    private ActionTyp actionTyp;
+
     private LocalDateTime timestamp;
 
-    public Long getEvent_list_id() {
-        return action_list_id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
+    public Action(ActionTyp actionTyp, LocalDateTime timestamp, User user, Game game) {
+        this.actionTyp = actionTyp;
+        this.timestamp = timestamp;
+        this.user = user;
+        this.game = game;
     }
 
-    public void setEvent_list_id(Long action_list_id) {
-        this.action_list_id = action_list_id;
+    public Action() {
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public UUID getId() {
+        return id;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public Long getGame_id() {
-        return game_id;
+    public ActionTyp getActionTyp() {
+        return actionTyp;
     }
 
-    public void setGame_id(Long game_id) {
-        this.game_id = game_id;
+    public void setActionTyp(ActionTyp actionTyp) {
+        this.actionTyp = actionTyp;
     }
 
     public LocalDateTime getTimestamp() {
@@ -49,5 +57,21 @@ public class Action {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
