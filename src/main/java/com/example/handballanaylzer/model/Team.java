@@ -95,4 +95,5 @@ public class Team {
     public void setClub_id(Club club_id) {
         this.club = club_id;
     }
+
 }
